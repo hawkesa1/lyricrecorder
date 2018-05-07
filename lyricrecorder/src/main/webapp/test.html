@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script language="javascript">
+	var context = new AudioContext();
+
+	window.addEventListener('load', function() {
+		initAudioPlayer();
+	})
+
+	function initAudioPlayer() {
+		var dropzone = document.querySelector('#dropzone');
+		dropzone.addEventListener('drop', handleDrop, false)
+		dropzone.addEventListener('dragover', handleDragOver, false)
+
+		document.querySelector('#play').addEventListener('click', function() {
+			context.resume();
+		});
+		
+		document.querySelector('#pause').addEventListener('click', function() {
+			context.suspend();
+		});
+
+
+	}
+
+	var handleDragOver = function(e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
+
+	var handleDrop = function(e) {
+		e.preventDefault()
+		e.stopPropagation()
+
+		console.log("yo");
+
+		var files = e.dataTransfer.files
+		for (var i = 0; i < files.length; i++) {
+			var file = files[i]
+			var reader = new FileReader()
+			reader.addEventListener('load', function(e) {
+				var data = e.target.result
+				context.decodeAudioData(data, function(buffer) {
+					playSound(buffer)
+				})
+			})
+			reader.readAsArrayBuffer(file)
+		}
+	}
+
+	var playSound = function(buffer) {
+		var source = context.createBufferSource()
+		source.buffer = buffer
+		source.connect(context.destination)
+		source.start(0)
+
+	}
+</script>
+
+
+<style>
+#dropzone {
+	width: 500px;
+	height: 500px;
+	background-color: red;
+	border: 1px solid black
+}
+</style>
+
+</head>
+<body>
+
+
+	<div id="play">Play</div>
+	<div id="pause">Pause</div>
+	<div id="dropzone">Hello Alex</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+#svgImage {
+	z-index: 100000;
+	position: absolute;
+	width: 512px;
+	height: 512px;
+	opacity: 0.9;
+	-webkit-filter: drop-shadow(-5px -5px 5px #000);
+	filter: drop-shadow(-5px -5px 5px #000);
+	/* Same syntax as box-shadow, except 
+                                                       for the spread property */
+}
+
+
+
+body:after {
+	content: url('../../svg/hippo.svg');
+	display: none;
+}
+
+#video {
+	overflow: scroll;
+	width: 817px;
+	height: 617px;
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid #1a1a1a;
+	background-color: none;
+	opacity: 1;
+	position: relative;
+	top: -619px;
+}
+
+.videControllerValue {
+	margin-left: 5px;
+	width: 40px;
+	color: white;
+	background-color: black;
+	border: 0px solid white;
+	position: relative;
+	top: -7px;
+}
+
+#backgroundImageContainerContainer {
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	width: 800px;
+	height: 600px;
+	z-index: 997;
+	border: 1px solid blue;
+}
+
+#backgroundImageContainer {
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	z-index: 998;
+	border: 1px solid green;
+}
+
+#videoCanvas {
+	z-index: 999;
+	position: absolute;
+	left: -1px;
+	top: -2px;
+	border: 0px solid orange;
+	width: 800px;
+	height: 600px;
+	opacity: 1;
+}
+
+#word1Canvas {
+	z-index: 1001;
+	position: absolute;
+	left: -1px;
+	top: -2px;
+	border: 0px solid blue;
+	width: 800px;
+	height: 600px;
+	opacity: 1;
+}
+
+#word2Canvas {
+	z-index: 1002;
+	position: absolute;
+	left: -1px;
+	top: -2px;
+	border: 0px solid red;
+	width: 800px;
+	height: 600px;
+	opacity: 1;
+}
+
+#pageControl {
+	border: 1px solid white;
+	overflow-y: scroll;
+	height: 170px;
+	width: 180px;
+}
+
+.pageTitle {
+	text-decoration: underline;
+}
+
+.pageLine {
+	text-indent: 10px;
+}

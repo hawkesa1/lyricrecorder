@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Lyric Video</title>
+<script src="./javascript/external/jquery/jquery-3.1.0.min.js"></script>
+<script src="./javascript/application/main.js"></script>
+<script src="./javascript/application/video/easing.js"></script>
+<script src="./javascript/application/video/animation2.js"></script>
+<script src="./javascript/application/video/parameters.js"></script>
+<script src="./javascript/application/AjaxCalls.js"></script>
+<script
+	src="./javascript/application/frameGenerator/frameGeneratorInitiation.js"></script>
+<link rel="stylesheet" href="css/video/page1.css" media="screen" />
+<link rel="stylesheet" href="css/video/fonts.css" media="screen" />
+<link rel="stylesheet" href="css/video/frameGenerator.css"
+	media="screen" />
+
+<style>
+#videoConsole {
+	border: 10px solid blue;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 0px;
+	left: 200px;
+	z-index: 9000009;
+	color: white;
+	display:none;
+}
+</style>
+
+
+</head>
+
+
+
+
+<body>
+
+	<div id='preloadedFontContainer' style='position: absolute; top: 700px'></div>
+	<script>
+		var FONT_LIST = [ "Comicate", "Arial", "XXon XXoff", "C rial",
+				"Wishing Well", "80 Decibels", "Gigi",
+				"Dancing in the Rainbow", "Millennial Solstice",
+				"Old English Text MT", "Ravie Regular", "Script MT",
+				"Oreos Outline Regular" ]
+
+		var html = "";
+		for (var i = 0; i < FONT_LIST.length; i++) {
+			html += "<span style='font-family: "+FONT_LIST[i]+"'>"
+					+ FONT_LIST[i] + " </span>";
+		}
+		document.getElementById("preloadedFontContainer").innerHTML = html;
+	</script>
+
+	<div id="backgroundImageContainerContainer">
+		<div id="backgroundImageContainer">
+			<!--  <object id="svgImage" type="image/svg+xml" data="./svg/Smiley.svg"></object>-->
+			<img id="svgImage" src="./svg/Smiley.svg" width="1px">
+		</div>
+
+	</div>
+
+	<canvas id="videoCanvas"></canvas>
+	<canvas id="word1Canvas" width="800" height="600"></canvas>
+	<canvas id="word2Canvas" width="800" height="600"></canvas>
+
+	<div id="controls">
+		<input id="frameRange" type="range" min=0 max=10000 value=2000></input>
+		<input id="frameValue" type="text" value="0"></input> <input
+			id="displayFrame" type="button" value="Display"></input>
+	</div>
+
+	<div id="videoConsole">Video Console</div>
+
+
+
+</body>
+
+
+
+
+
+<script>
+	// initialise canvases
+	//http://localhost:8080/lyricrecorder/frameGenerator.html?frameNumber=5000&fps=60&pageWidth=800&pageHeight=600&videoScript=resources%2FvideoScripts%2Ftest2.json
+	var word1Canvas;
+	var word1Context;
+	var word2Canvas;
+	var word2Context;
+	canvas = document.getElementById('videoCanvas');
+	ctx = canvas.getContext('2d');
+	word1Canvas = document.getElementById('word1Canvas');
+	word1Context = word1Canvas.getContext('2d');
+	word2Canvas = document.getElementById('word2Canvas');
+	word2Context = word2Canvas.getContext('2d');
+
+	currentStateStore = new CurrentStateStore();
+
+	//get parameters passed in the url
+	frameNumber = QueryString.frameNumber;
+	fps = QueryString.fps;
+	pageWidth = QueryString.pageWidth;
+	pageHeight = QueryString.pageHeight;
+	videoScript = QueryString.videoScript;
+	
+	var mySVG = document.getElementById("svgImage");
+	var svgDoc;
+	mySVG.addEventListener("load", function() {
+		circ = $('#svgImage');
+		circ.css({
+			'position' : 'absolute',
+			'width' : '100px',
+			'left' : '100px',
+			'top' : '100px'
+		});
+	}, false);
+
+	// Display it on the page
+	$("#frameRange").val(frameNumber);
+	$("#frameValue").val(frameNumber);
+
+	canvas.width = pageWidth;
+	canvas.height = pageHeight;
+	console.log("Logging framenumber: " + QueryString.frameNumber);
+	// http://localhost:8080/LyricVideo/test1.html?frameNumber=200&fps=60&pageWidth=800&pageHeight=600
+	loadAllParametersFromFile(videoScript);
+
+	addEventsToFrameInputs();
+	initialiseParameters();
+</script>
+
+
+
+<script>
+	
+</script>
+
+</html>

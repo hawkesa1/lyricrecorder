@@ -1,0 +1,19 @@
+@font-face {
+	font-family: Comicate;
+	src: local('Comicate'), url(../../fonts/comicate.ttf);
+}
+
+@font-face {
+	font-family: XXon XXoff;
+	src: local('XXon XXoff'), local('XXon XXoff Regular'), url(../../fonts/XXon XXoff.ttf);
+}
+
+@font-face {
+	font-family: C rial;
+	src: local('C rial'),  url(../../fonts/CRIALTRIAL.ttf);
+}
+
+@font-face {
+	font-family: Ravie Regular;
+	src: local('Ravie Regular'), url(../../fonts/RAVIE.TTF);
+}

@@ -1,0 +1,63 @@
+#fileUploadHolder {
+	font-family: Calibri;
+	font-size: 20px;
+	border: 1px solid #1a1a1a;
+	overflow: none;
+	width: 800px;
+	height: 220px;
+	padding: 0px;
+	margin: 0px;
+	border: 1px solid #1a1a1a;
+	background-color:black;
+	opacity:0.8;
+	color:white;
+	display:none;
+	padding-top:40px;
+	
+	
+}
+#fileUploadHolder.hover {
+	
+	background-color:#405b3c;
+	opacity:0.5;
+}
+#fileUploadHolder.error {
+	border: 1px dashed red;
+}
+
+#fileUploadHolder p {
+	position:relative;
+	top:-10px;
+	padding-top:0px;
+	padiing-bottom:0px;
+	font-size: 20px;
+	background-color:none;
+	text-align:center;
+}
+#fileUploadHolder p.good {
+	color:green;
+}
+#fileUploadHolder p.bad {
+	font-weight:bold;
+	color:red;
+}
+
+progress {
+	margin-top:10px;
+	width: 800px;
+	height: 25px;
+}
+
+progress:after {
+	content: '';
+}
+
+.fail {
+	background: #c00;
+	padding: 2px;
+	color: #fff;
+}
+
+.hidden {
+	display: none !important;
+}

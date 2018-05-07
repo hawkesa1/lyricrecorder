@@ -1,0 +1,74 @@
+#videoCanvas {
+	z-index: 999;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border: 0px solid yellow;
+	width:800px;
+	height:600px;
+	opacity:1;
+}
+#word1Canvas {
+	z-index: 1001;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border: 0px solid yellow;
+	width:800px;
+	height:600px;
+	opacity:1;
+}
+#word2Canvas {
+	z-index: 1002;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	border: 0px solid red;
+	width:800px;
+	height:600px;
+	opacity:1;
+}
+#svgImage {
+	z-index: 1003;
+	position: absolute;
+	width: 512px;
+	height: 512px;
+	opacity: 0.9;
+	-webkit-filter: drop-shadow(-5px -5px 5px #000);
+	filter: drop-shadow(-5px -5px 5px #000);
+	/* Same syntax as box-shadow, except 
+                                                       for the spread property */
+}
+
+#backgroundImageContainerContainer
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 802px;
+	height: 600px;
+	z-index: 977;
+	overflow:hidden;
+	border: 0px solid blue;
+}
+
+
+#backgroundImageContainer {
+		position: absolute;
+	top: 0px;
+	left: 0px;
+	position:absolute;
+	width: 800px;
+	height: 600px;
+	z-index: -987;
+	border:0px solid red;
+}
+
+#controls {
+	
+	overflow-y: scroll;
+	border: 1px solid black;
+	width: 600px;
+	position:absolute;
+	top:1200px;
+}
