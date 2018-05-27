@@ -147,7 +147,7 @@ function processANewlyUploadedMusicFile(json) {
 				lyricTracker.generateWaveForm(json.coordinates);
 				
 				updateConsole("<p class='good'>* Processing complete.  Drag another audio file here to start again on a new track.</p>");
-				loadDefaultParametersFromFile(videoScript);
+				//loadDefaultParametersFromFile(videoScript);
 				enableView("enableTextView", "lyricText");
 			}, currentStateStore.ECLIPSE_FILE_WAIT);
 	

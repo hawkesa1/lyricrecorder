@@ -45,8 +45,8 @@ function fileSaver(fileName, textContent) {
 function saveLyricsToBrowser(trackMetaData, songId) {
 	console.log(trackMetaData);
 	trackMetaData.lyricRecorderSynchronisedLyrics = currentStateStore.lineArray;
-	trackMetaData.videoSnapshot = generateSingleSnapshot();
-	trackMetaData.pages = currentStateStore.book.pages;
+	//trackMetaData.videoSnapshot = generateSingleSnapshot();
+	//trackMetaData.pages = currentStateStore.book.pages;
 	var trackMetaDataAsString = JSON.stringify(trackMetaData, null, 2);
 	fileSaver(songId, trackMetaDataAsString);
 }
