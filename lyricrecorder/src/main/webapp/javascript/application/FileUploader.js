@@ -94,8 +94,7 @@ FileUploader.prototype.readFiles = function(files) {
 		};
 
 		xhr.onerror = function(event) {
-			fileUploader
-					.updateConsole('<p class=\'bad\'>* An error occurred with the upload. Please try again.</p>');
+			console.log('<p class=\'bad\'>* An error occurred with the upload. Please try again. '+xhr.responseText+'</p>');
 		};
 
 		xhr.upload.onprogress = function(event) {
