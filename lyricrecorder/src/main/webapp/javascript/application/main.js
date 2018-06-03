@@ -38,9 +38,30 @@ function animate() {
 	draw();
 }
 
+var frameCount=0;
+var frameCountT0;
+var frameCountT1;
+
 function draw() {
+
+	frameCount++;
+	
+	if(frameCount%60==0)
+	{
+		frameCountT0=performance.now;
+	}	
 	lyricTracker.canvas.context.clearRect(0, 0, lyricTracker.canvas.width, lyricTracker.canvas.height);
 	waveForm.draw($("#audio").prop("currentTime") * 1000, lyricTracker.canvas.context);
+	
+	if(frameCount%60==0)
+	{
+		frameCountT1=performance.now;
+		console.log("Time to draw 60 frames " + (frameCountT1 - frameCountT0) + " milliseconds.");	
+		frameCount=0;
+		
+		
+	}	
+	
 	
 	//drawIt1(videoContext, $("#audio").prop("currentTime") * 1000)
 }

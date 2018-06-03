@@ -26,10 +26,10 @@ $(document).ready(
 		
 			//videoCanvas = document.getElementById('videoCanvas');
 			//videoContext = videoCanvas.getContext('2d');
-			word1Canvas = document.getElementById('word1Canvas');
-			word1Context = word1Canvas.getContext('2d');
-			word2Canvas = document.getElementById('word2Canvas');
-			word2Context = word2Canvas.getContext('2d');
+			//word1Canvas = document.getElementById('word1Canvas');
+			//word1Context = word1Canvas.getContext('2d');
+			//word2Canvas = document.getElementById('word2Canvas');
+			//word2Context = word2Canvas.getContext('2d');
 			
 			//initialiseParameters();
 		});

@@ -39,14 +39,58 @@ function fileSaver(fileName, textContent) {
 	var blob = new Blob([ textContent ], {
 		type : "application/json;charset=utf-8"
 	});
-	saveAs(blob, fileName + ".json");
+	// saveAs(blob, fileName + ".json");
+	createZipFile(theCurrentMusicFile, blob)
+}
+
+function readZipFile(file) {
+	JSZip.loadAsync(file).then(function(zip) {
+		return zip.file("lyricData/LyricRecorder.js").async("text");
+	}).then(function(txt) {
+		var trackMetaData = JSON.parse(txt);
+		processAJSONFile(trackMetaData);
+	});
+	
+	
+	JSZip.loadAsync(file).then(function(zip) {
+		
+		return zip.file("audio/audio.mp3").async("blob");
+	}).then(function(file) {
+		
+	
+		console.log(file);
+		
+	
+		var vid = document.getElementById("audio");
+		vid.src = URL.createObjectURL(file);
+		vid.load();
+		theCurrentMusicFile = file;
+	});
+	
+	
+}
+
+function createZipFile(audioFile, lyricRecorderFile) {
+	var zip = new JSZip();
+	zip.folder("audio");
+	zip.folder("lyricData");
+	zip.file("audio/" + "audio.mp3", audioFile);
+	zip.file("lyricData/LyricRecorder.js", lyricRecorderFile);
+
+	zip.generateAsync({
+		type : "blob"
+	}).then(function(content) {
+		// see FileSaver.js
+		saveAs(content, "LyricRecorder.zip");
+	});
+	console.log("Created Zip File");
 }
 
 function saveLyricsToBrowser(trackMetaData, songId) {
 	console.log(trackMetaData);
 	trackMetaData.lyricRecorderSynchronisedLyrics = currentStateStore.lineArray;
-	//trackMetaData.videoSnapshot = generateSingleSnapshot();
-	//trackMetaData.pages = currentStateStore.book.pages;
+	// trackMetaData.videoSnapshot = generateSingleSnapshot();
+	// trackMetaData.pages = currentStateStore.book.pages;
 	var trackMetaDataAsString = JSON.stringify(trackMetaData, null, 2);
 	fileSaver(songId, trackMetaDataAsString);
 }
@@ -105,10 +149,9 @@ function loadWaveForm2(location, wavFormFile) {
 	});
 	function processResponse(text) {
 		parameterWavePoints = waveFormTextToArray1(text);
-		console.log(parameterWavePoints.length);		
+		console.log(parameterWavePoints.length);
 	}
 }
-
 
 var parameterWavePoints;
 

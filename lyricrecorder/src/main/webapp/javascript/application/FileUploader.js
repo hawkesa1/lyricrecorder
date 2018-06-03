@@ -25,6 +25,8 @@ FileUploader.prototype.bindEvents = function(container, theFileUploader) {
 	}
 }
 
+var theCurrentMusicFile;
+
 FileUploader.prototype.readFiles = function(files) {
 	clearConsole();
 	var formData = new FormData();
@@ -32,42 +34,36 @@ FileUploader.prototype.readFiles = function(files) {
 	for (var i = 0; i < files.length; i++) {
 		file = files[i]
 		if (i == 0) { // only allow 1 file at a time
-			if (file.type.split("/")[0] === "audio") {
+			if (file.type.split("/")[0] === "audio") { //If it's an audio file
 				if (file.size < (20 * 1024 * 1024)) {
 					formData.append('file', file);
 					updateConsole('<p>* Reading file: ' + file.name + '</p>');
 					performUpload(formData);
-					
-					
-					
-					
-					
 					var vid = document.getElementById("audio");
 					vid.src = URL.createObjectURL(file);
-					
-					 vid.load();
-					
-					
-					
-					
-					
+					vid.load();
+					theCurrentMusicFile = file;
+
 				} else {
 					updateConsole("<p class='bad'>* The maximum file size is 15 Mb.  This file is: '+ parseFloat((file.size / 1024 / 1024)).toFixed(2) + ' Mb</p>");
 				}
-			} else if (file.name.split(".")[1].toUpperCase() == "JSON") {
+			} else if (file.name.split(".")[1].toUpperCase() == "JSON") { //If it's a json file
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					
-					
-					
-					
 					var trackMetaData = JSON.parse(reader.result);
 					processAJSONFile(trackMetaData);
 				}
 				reader.readAsText(file, "utf-8");
-			} else {
+			} else if (file.type.split("/")[0].toUpperCase() == "APPLICATION") { //If it's a zip file
+				readZipFile(file)
+				
+			}
+
+			else {
 				updateConsole("<p class='bad'>* This is not an audio file: <i>"
-						+ file.name + "</i>.  Please try again..</p>");
+						+ file.name + "</i>.  File Type: \""
+						+ file.type.split("/")[0]
+						+ "\".  Please try again..</p>");
 			}
 		}
 	}
@@ -91,7 +87,7 @@ FileUploader.prototype.readFiles = function(files) {
 				updateConsole("<p class='bad'>* An error occurred during the conversion process</p>");
 			} else {
 				console.log("Hello:" + progressEvent.target.response);
-				
+
 				var json = JSON.parse(progressEvent.target.response);
 				processANewlyUploadedMusicFile(json)
 			}
@@ -131,8 +127,6 @@ FileUploader.prototype.readFiles = function(files) {
 
 }
 
-
-
 function processANewlyUploadedMusicFile(json) {
 	resetStuff();
 	currentStateStore.trackMetaData = json;
@@ -143,17 +137,15 @@ function processANewlyUploadedMusicFile(json) {
 				updatePageDetails(json);
 				loadATrack2(json.uniqueId);
 				loadMetaData(json);
-				
+
 				lyricTracker.generateWaveForm(json.coordinates);
-				
+
 				updateConsole("<p class='good'>* Processing complete.  Drag another audio file here to start again on a new track.</p>");
-				//loadDefaultParametersFromFile(videoScript);
+				// loadDefaultParametersFromFile(videoScript);
 				enableView("enableTextView", "lyricText");
 			}, currentStateStore.ECLIPSE_FILE_WAIT);
-	
+
 }
-
-
 
 function processANewlyUploadedMusicFile1(json) {
 	resetStuff();
@@ -169,7 +161,7 @@ function processANewlyUploadedMusicFile1(json) {
 				loadDefaultParametersFromFile(videoScript);
 				enableView("enableTextView", "lyricText");
 			}, currentStateStore.ECLIPSE_FILE_WAIT);
-	
+
 }
 
 function processAJSONFile(trackMetaData) {
@@ -177,13 +169,16 @@ function processAJSONFile(trackMetaData) {
 	currentStateStore.trackMetaData = trackMetaData;
 	var uniqueId = trackMetaData.uniqueId;
 	currentStateStore.currentSongId = uniqueId;
-	
-	//loadMetaData(trackMetaData);
 
-	console.log ("aaaaassss");
+	console.log("uniqueId="+trackMetaData);
+	loadMetaData(trackMetaData);
+
+	console.log("aaaaassss");
 	lyricTracker.generateWaveForm(trackMetaData.coordinates)
+
 	
-	
+	$('#lyrics').html(generateLyrics(currentStateStore.lineArray));
+	 addClickToLyrics();
 	enableView("enableWordView", "lyrics");
 }
 
@@ -191,8 +186,8 @@ function loadMetaData(trackMetaData) {
 	updatePageDetails(trackMetaData);
 	currentStateStore.trackMetaData = trackMetaData;
 	currentStateStore.lineArray = trackMetaData.lyricRecorderSynchronisedLyrics;
-	//$('#lyrics').html(generateLyrics(currentStateStore.lineArray));
-	//addClickToLyrics();
+	
+	
 
 }
 function resetStuff() {
@@ -201,11 +196,10 @@ function resetStuff() {
 
 function loadATrack2(selectedValue) {
 	var audio = document.getElementById('audio');
-	//audio.src = mp3Location + selectedValue + ".MP3";
-	
-	
-	//loadWaveForm('./resources/wavForm/', selectedValue);
-	
+	// audio.src = mp3Location + selectedValue + ".MP3";
+
+	// loadWaveForm('./resources/wavForm/', selectedValue);
+
 	currentStateStore.currentSongId = selectedValue;
 	audio.load();
 	audio.addEventListener('loadedmetadata',
@@ -214,6 +208,3 @@ function loadATrack2(selectedValue) {
 						.getElementById('audio').duration * 100;
 			});
 }
-
-
-

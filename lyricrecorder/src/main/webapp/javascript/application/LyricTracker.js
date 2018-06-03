@@ -115,13 +115,17 @@ var LyricTracker = function(container) {
 
 	// Receives the currentTimeof the audio file and the context of the canvas
 
+	var oldTime=0;
+	
 	WaveForm.prototype.draw = function(time, ctx) {
-		var vid = document.getElementById("audio");
-		if (vid.paused) {
-			$('#playPauseButton').text("Play");
-		} else {
-			$('#playPauseButton').text("Pause");
-		}
+	
+		
+		//var vid = document.getElementById("audio");
+		//if (vid.paused) {
+		//	$('#playPauseButton').text("Play");
+		//} else {
+		//	$('#playPauseButton').text("Pause");
+		//}
 		if (time > currentStateStore.stopAtTime) {
 			// Because it misses and looks messy
 			document.getElementById("audio").currentTime = currentStateStore.stopAtTime / 1000;
@@ -394,7 +398,6 @@ var LyricTracker = function(container) {
 				ctx.fillStyle = canvasFontMarkerColour;
 				ctx.fillText("|", this.pointX - 2, 131);
 				ctx.fillText("|", this.pointX - 2, 37);
-
 			}
 			if (i % 100 == 0) {
 				ctx.font = canvasFontMarker;
