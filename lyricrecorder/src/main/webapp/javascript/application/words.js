@@ -101,19 +101,7 @@ function convertLyricTextToWords() {
 	var aLineObject = currentStateStore.lineArray[currentStateStore.currentLineIndex];
 	var aWordObject = aLineObject.words[currentStateStore.currentWordIndex];
 	currentStateStore.currentSelectedWordId = aWordObject.id;
-	$('#wordInfoId').val(currentStateStore.currentSelectedWordId);
-
-	$('#wordInfoWord').val(
-			aWordObject.word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""));
-	$('#wordInfoStartTime').val(
-			millisecondsToISOMinutesSecondsMilliseconds(aWordObject.startTime));
-	$('#wordInfoEndTime').val(
-			millisecondsToISOMinutesSecondsMilliseconds(aWordObject.endTime));
-	$('.word').removeClass("wordSelected");
-	$(
-			'#word_' + currentStateStore.currentLineIndex + "_"
-					+ currentStateStore.currentWordIndex).addClass(
-			"wordSelected");
+	
 }
 
 function lyricsTextToObjects(lyricsText) {

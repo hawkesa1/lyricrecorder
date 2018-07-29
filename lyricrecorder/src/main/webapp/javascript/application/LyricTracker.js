@@ -129,7 +129,7 @@ var LyricTracker = function(container) {
 		if (time > currentStateStore.stopAtTime) {
 			// Because it misses and looks messy
 			document.getElementById("audio").currentTime = currentStateStore.stopAtTime / 1000;
-			vid.pause();
+			document.getElementById("audio").pause();
 			currentStateStore.stopAtTime = 999999;
 		}
 

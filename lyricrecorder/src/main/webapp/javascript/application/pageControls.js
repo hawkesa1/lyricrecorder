@@ -224,7 +224,11 @@ function enableView(tabItemId, viewId) {
 	if (tabItemId == "enableUploadView") {
 		currentStateStore.currentLyricView = "UPLOAD_VIEW";
 	} else if (tabItemId == "enableTextView") {
+		console.log("Hello alex");
 		currentStateStore.currentLyricView = "TEXT_VIEW";
+		
+		convertSyncLyricsToText();
+		
 
 	} else if (tabItemId == "enableWordView") {
 		if (currentStateStore.currentLyricView === "TEXT_VIEW") {
@@ -242,6 +246,15 @@ function enableView(tabItemId, viewId) {
 		cleanUpAnalyzer();
 		startVisualisation();
 	}
+}
+
+function convertSyncLyricsToText()
+{
+	
+	
+	var syncedWords=currentStateStore.lineArray;
+	
+
 }
 
 function enableViewTabs(itemId) {
