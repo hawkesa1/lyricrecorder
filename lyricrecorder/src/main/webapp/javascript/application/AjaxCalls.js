@@ -139,6 +139,7 @@ function loadWaveForm(location, wavFormFile) {
 }
 
 function loadWaveForm2(location, wavFormFile) {
+	console.log("loadWaveForm2");
 	$.ajax({
 		type : 'GET',
 		url : location + wavFormFile + '.TXT',

@@ -74,6 +74,9 @@ FileUploader.prototype.readFiles = function(files) {
 		updateConsole('<p id=\'fileUploadProgress\'>* Step 1/3 Uploading file to server 0%</p>');
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', './FileUpload');
+		
+		console.log("Hello Alex");
+		
 		xhr.onload = function(progressEvent) {
 			// progress.value = progress.innerHTML = 100;
 			var fileConversionProgress = document

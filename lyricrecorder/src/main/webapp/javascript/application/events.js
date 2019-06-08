@@ -94,9 +94,10 @@ $(function() {
 		e.preventDefault();
 		var vid = document.getElementById("audio");
 		if (vid.paused) {
+			audioContext.resume();
 			vid.play();
 			
-			
+			console.log("yo!!!");
 			
 			$('#playPauseButton').text("Pause");
 		} else {
